@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KraftKit | Login</title><link rel="stylesheet" href="css/style.css"></head>
+<body class="cream"><main><div class="box" id="b"></div></main><script src="js/app.js"></script><script>
+let mode='in';
+function draw(){const u=get('user');if(u){$('#b').innerHTML=`<h1>Welcome</h1><p>Signed in as <b>${u}</b></p><button class="btn" id="o">Log out</button>`;$('#o').onclick=()=>{localStorage.removeItem('user');draw()};return}
+$('#b').innerHTML=`<h1>Login/Signup</h1><div class="tabs"><button class="btn ${mode=='in'?'':'ghost'}" id="ti" style="width:auto">Login</button><button class="btn ${mode=='up'?'':'ghost'}" id="tu" style="width:auto">Sign up</button></div>
+<input id="e" type="email" placeholder="Email"><input id="p" type="password" placeholder="Password">${mode=='up'?'<input id="p2" type="password" placeholder="Confirm password">':''}
+<p class="msg" id="m"></p><button class="btn alt" id="go">${mode=='in'?'Login':'Create account'}</button><p><a href="#" id="f">Forgot password?</a></p>`;
+$('#ti').onclick=()=>{mode='in';draw()};$('#tu').onclick=()=>{mode='up';draw()};
+$('#f').onclick=e=>{e.preventDefault();$('#m').textContent=$('#e').value?'If this email has an account, a reset link would be sent.':'Enter your email first.'};
+$('#go').onclick=()=>{const e=$('#e').value.trim(),p=$('#p').value,us=get('users',{}),m=$('#m');
+if(!/^\S+@\S+\.\S+$/.test(e))return m.textContent='Enter a valid email.';if(p.length<6)return m.textContent='Password must be at least 6 characters.';
+if(mode=='up'){if(p!=$('#p2').value)return m.textContent='Passwords do not match.';if(us[e])return m.textContent='Account already exists.';us[e]=p;set('users',us)}
+else if(us[e]!==p)return m.textContent='Wrong email or password.';
+set('user',e);location=qs.get('next')||'Home.html'}}
+init=draw</script></body></html>

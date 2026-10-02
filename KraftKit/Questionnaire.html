@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KraftKit | Questionnaire</title><link rel="stylesheet" href="css/style.css"></head>
+<body class="beige"><main style="max-width:700px"><h1 style="text-align:center;color:var(--rust);font-size:56px">Questionnaire</h1>
+<div class="q">Is your project expensive?<input class="sw" type="checkbox" id="exp"></div><div class="q">Is your project time taking?<input class="sw" type="checkbox" id="slow"></div>
+<div class="q">Is your project time friendly?<input class="sw" type="checkbox" id="fast"></div><div class="q">Is your project delicate?<input class="sw" type="checkbox" id="del"></div>
+<p style="text-align:center"><button class="btn alt" id="done">Done</button></p></main><script src="js/app.js"></script><script>
+init=()=>{const k=['exp','slow','fast','del'],pr=get('prefs',{});k.forEach(i=>$('#'+i).checked=!!pr[i]);
+$('#slow').onchange=()=>{if($('#slow').checked)$('#fast').checked=false};$('#fast').onchange=()=>{if($('#fast').checked)$('#slow').checked=false};
+$('#done').onclick=()=>{set('prefs',Object.fromEntries(k.map(i=>[i,$('#'+i).checked])));location='Shop.html?match=1'}}</script></body></html>

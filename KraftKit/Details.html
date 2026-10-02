@@ -1,0 +1,6 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KraftKit | Product</title><link rel="stylesheet" href="css/style.css"></head>
+<body><main><div id="d"></div></main><script src="js/app.js"></script><script>
+init=()=>{const p=find(qs.get('id'));if(!p){$('#d').innerHTML='<h2>Product not found</h2><a href="Shop.html">Back to products</a>';return}
+$('#d').innerHTML=`<div class="split"><img src="${p.i}" alt="${p.n}"><div><h1>${p.n}</h1><p>${p.d}</p><p class="price" style="font-size:28px">$${p.p}</p>
+<button data-a="${p.id}">Add to Cart</button> <button class="alt btn" id="b">Buy Now</button> <button class="ghost btn" data-w="${p.id}"><i class="fa-regular fa-heart"></i> Wishlist</button><p><a href="Shop.html">&larr; Back to products</a></p></div></div>`;
+$('#b').onclick=()=>{add(p.id);location='Bill.html'}}</script></body></html>

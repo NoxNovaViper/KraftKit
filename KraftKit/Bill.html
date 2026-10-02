@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KraftKit | Cart</title><link rel="stylesheet" href="css/style.css"></head>
+<body><main><h2 class="title">Shopping Cart</h2><div id="c"></div></main><script src="js/app.js"></script><script>
+function draw(){const c=get('cart',{}),ids=Object.keys(c);if(!ids.length){$('#c').innerHTML='<p style="text-align:center">Your cart is empty. <a href="Shop.html">Start shopping</a></p>';return}
+let t=0;$('#c').innerHTML=`<div style="overflow-x:auto"><table><tr><th></th><th>Product</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th></th></tr>${ids.map(i=>{const p=find(i),s=p.p*c[i];t+=s;
+return `<tr><td><img src="${p.i}" alt=""></td><td>${p.n}</td><td>$${p.p}</td><td class="qty"><button data-q="${i}" data-n="-1">-</button> ${c[i]} <button data-q="${i}" data-n="1">+</button></td><td>$${s}</td><td><button class="rm" data-r="${i}"><img src="Images/Remove.png" alt="Remove"></button></td></tr>`}).join('')}</table></div>
+<div class="total">Total: <b>$${t}</b></div><div style="text-align:right"><button id="co">Checkout</button></div>`;
+$('#co').onclick=()=>{set('cart',{});head();$('#c').innerHTML='<h2 class="title">Thank you for your order!</h2><p style="text-align:center"><a href="Shop.html">Keep shopping</a></p>'}}
+document.addEventListener('click',e=>{const q=e.target.closest('[data-q]'),r=e.target.closest('[data-r]');if(q)add(q.dataset.q,+q.dataset.n);if(r){const c=get('cart',{});delete c[r.dataset.r];set('cart',c);head()}if(q||r)draw()});
+init=draw</script></body></html>

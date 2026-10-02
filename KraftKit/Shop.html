@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KraftKit | Products</title><link rel="stylesheet" href="css/style.css"></head>
+<body><main><h2 class="title" id="t">Products</h2><div class="bar"><input id="s" style="max-width:340px;margin:0" placeholder="Search kits..."><select id="o" style="padding:10px;border-radius:12px;border:2px solid #e0903f"><option value="">Sort: default</option><option value="a">Price: low to high</option><option value="d">Price: high to low</option></select></div>
+<p id="n" style="text-align:center"></p><div class="grid" id="g"></div></main>
+<script src="js/app.js"></script><script>
+init=()=>{const v=qs.get('view'),m=qs.get('match'),pr=get('prefs',{});
+const base=P.filter(p=>v=='wishlist'?get('wish',[]).includes(p.id):m?(!pr.exp||p.p>=85)&&(!pr.slow||p.slow)&&(!pr.fast||!p.slow)&&(!pr.del||p.del):true);
+$('#t').textContent=v=='wishlist'?'Your Wishlist':m?'Recommended for You':'Products';
+function draw(){let l=base.filter(p=>p.n.toLowerCase().includes($('#s').value.toLowerCase()));const o=$('#o').value;if(o)l.sort((a,b)=>o=='a'?a.p-b.p:b.p-a.p);
+$('#g').innerHTML=l.map(card).join('');$('#n').innerHTML=l.length?(m||v?'<a href="Shop.html">Show all products</a>':''):'Nothing here yet. <a href="Shop.html">Browse all products</a>'}
+$('#s').oninput=$('#o').onchange=draw;draw()}</script></body></html>
